@@ -1,0 +1,97 @@
+services:
+  mariadb:
+    build: 
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    secrets:
+      - source : db_password
+        target : ${DB_PWD_FILE_TARGET}
+      - source : db_root_password
+        target : ${DB_ROOT_PWD_FILE_TARGET}
+    networks:
+      - wordpress-mariadb
+    volumes:
+      - type: volume
+        source: DB
+        target: /var/lib/mysql
+    env_file: .env
+    image: mariadb:${IMAGE_TAG}
+    container_name: mariadb-${CONTAINER_NAME}
+    init: true
+    restart: on-failure
+  wordpress:
+    depends_on:
+      - mariadb
+    build:
+      context: ./requirements/wordpress/
+      dockerfile: Dockerfile
+    secrets:
+      - source: db_password
+        target: ${DB_PWD_FILE_TARGET}
+      - source: wp_admin_password
+        target: ${WP_CREDENTIALS_FILE_TARGET}
+    networks:
+      - nginx-wordpress
+      - wordpress-mariadb
+    volumes:
+      - type: volume
+        source: Wordpress
+        target: ${WP_FILES_DIR}
+    env_file: .env
+    image: wordpress:${IMAGE_TAG}
+    container_name: wordpress-${CONTAINER_NAME}
+    restart: on-failure
+    init: true
+
+  nginx:
+    depends_on:
+      - wordpress
+    build: 
+      context: ./requirements/nginx/
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:{NGINX_PORT}:{NGINX_PORT}"
+    networks:
+      - nginx-wordpress
+    volumes:
+      - type: volume
+        source: Wordpress
+        target: ${WP_FILES_DIR}
+      - ${NGINX_CERT_FILE}:${NGINX_CERT_FILE}:ro
+      - ${NGINX_KEY_FILE}:${NGINX_KEY_FILE}:ro
+    env_file: .env
+    image : nginx:${IMAGE_TAG}
+    container_name : nginx-${CONTAINER_NAME}
+    restart: on-failure
+    init: true
+
+
+networks:
+  nginx-wordpress:
+    driver: bridge
+  wordpress-mariadb:
+    driver: bridge
+
+volumes:
+  Wordpress: 
+    name: "Wordpress"
+    driver: local
+    driver_opts:
+      type: local
+      device: ${WP_VOLUME_SRC}
+      o: bind
+  DB: 
+    name: "DB"
+    driver: local
+    driver_opts:
+      type: local
+      device: ${DB_VOLUME_SRC}
+      o: bind
+
+secrets:
+  db_password:
+    file: ${DB_PWD_FILE}
+  db_root_password:
+    file: ${DB_ROOT_PWD_FILE}
+  wp_admin_password:
+    file: ${CREDENTIALS_FILE}

@@ -1,0 +1,25 @@
+server {
+    listen ${NGINX_PORT} ssl;
+    server_name ${DOMAIN};
+
+    ssl_certificate ${NGINX_CERT_FILE};
+    ssl_certificate_key ${NGINX_KEY_FILE};
+    ssl_session_timeout 5m;
+    ssl_protocols TLSv1.2;
+
+    root ${WP_FILES_DIR};
+    index index.php index.html;
+    
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_pass wordpress_container:9000;
+        fastcgi_index index.php;
+    }
+}
