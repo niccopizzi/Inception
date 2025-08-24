@@ -1,58 +1,44 @@
-IMG_VERSION=inception
 DC=docker-compose -f ./srcs/docker-compose.yml
-DC_RM=docker image rm
 
-MARIADB=mariadb
-NGINX=nginx
-WORDPRESS=wordpress
+MANDATORY_SERVICE = mariadb wordpress nginx
 
-build-mariadb:
-	$(DC) build $(MARIADB)
+BONUS_SERVICE = redis ftp
 
-up-mariadb:
-	$(DC) up $(MARIADB)
+mandatory-up:
+	$(DC) up -d $(MANDATORY_SERVICE)
 
-stop-mariadb:
-	$(DC) stop $(MARIADB)
+mandatory-down:
+	$(DC) down $(MANDATORY_SERVICE)
 
-restart-mariadb:
-	$(DC) restart $(MARIADB)
+mandatory-start:
+	$(DC) start $(MANDATORY_SERVICE)
 
-down-mariadb:
-	$(DC) down $(MARIADB)
+mandatory-stop:
+	$(DC) stop $(MANDATORY_SERVICE)
 
-redo-mariadb:	down-mariadb build-mariadb up-mariadb
+mandatory-restart:
+	$(DC) restart $(MANDATORY_SERVICE)
 
-build-nginx:
-	$(DC) build $(NGINX)
+bonus-up:
+	$(DC) up -d $(MANDATORY_SERVICE) $(BONUS_SERVICE)
+	docker exec wordpress-container wp plugin activate redis-cache --allow-root
+	docker exec wordpress-container wp redis enable --allow-root
 
-up-nginx:
-	$(DC) up -d $(NGINX)
+bonus-down:
+	docker exec wordpress-container wp redis disable --allow-root
+	$(DC) down $(MANDATORY_SERVICE) $(BONUS_SERVICE)
 
-stop-nginx:
-	$(DC) stop $(NGINX)
+bonus-start:
+	$(DC) start $(MANDATORY_SERVICE) $(BONUS_SERVICE)
+	docker exec wordpress-container wp redis enable --allow-root
 
-restart-nginx:
-	$(DC) restart $(NGINX)
+bonus-stop:
+	docker exec wordpress-container wp redis disable --allow-root
+	$(DC) stop $(MANDATORY_SERVICE) $(BONUS_SERVICE)
 
-down-nginx:
-	$(DC) down $(NGINX)
+bonus-restart:
+	$(DC) restart $(MANDATORY_SERVICE) $(BONUS_SERVICE)
+	docker exec wordpress-container wp redis enable --allow-root
 
-redo-nginx:	down-nginx build-nginx up-nginx
-
-build-all:
-	$(DC) build
-
-up-all:
-	$(DC) up -d
-
-stop-all:
-	$(DC) stop
-
-restart-all:
-	$(DC) restart
-
-down-all:
-	$(DC) down
-
-redo-all: down-all build-all up-all
+.PHONY: mandatory-up mandatory-down mandatory-start mandatory-stop mandatory-restart \
+		bonus-up bonus-down bonus-start bonus-stop bonus-restart

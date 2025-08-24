@@ -1,12 +1,13 @@
 FROM debian:bullseye
 
-ENV WP_FILES_DIR="/var/www/html/wordpress"
-ENV PHP_VERSION="7.4"
-ENV WP_CLI_URL="https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
+ARG WP_FILES_DIR
+ARG PHP_VERSION
+ARG WP_CLI_URL
 
 RUN apt update && \
     apt install php${PHP_VERSION}-fpm php-mysql -y && \
-    apt install curl -y && curl -O ${WP_CLI_URL}
+    apt install curl -y && curl -O ${WP_CLI_URL} && \
+    apt install libfcgi-bin -y
 
 RUN chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp && \
