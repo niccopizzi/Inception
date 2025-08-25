@@ -153,6 +153,7 @@ services:
       - CONTAINER_NAME=${CONTAINER_NAME}
       - WP_HOST=${WP_HOST}
       - WEBSITE_NAME=${WEBSITE_NAME}
+      - ADMINER_PORT=${ADMINER_PORT}
     image : nginx:${IMAGE_TAG}
     container_name : nginx-${CONTAINER_NAME}
     restart: on-failure
@@ -200,17 +201,22 @@ services:
     restart: on-failure
     init: true
 
-  #adminer:
-  #  build:
-  #    context: ./requirements/bonus/adminer
-  #    dockerfile: Dockerfile
-  #  volumes:
-  #    - type: volume
-  #      source: Wordpress
-  #      target: ${WP_FILES_DIR}
-  #  networks:
-  #    - adminer-mariadb
-  #  image: adminer:${IMAGE_TAG}
-  #  container_name: adminer-${CONTAINER_NAME}
-  #  restart: on-failure
-  #  init: true
+  adminer:
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    build:
+      context: ./requirements/bonus/adminer
+      dockerfile: Dockerfile
+      args:
+        - ADMINER_PORT=${ADMINER_PORT}
+    networks:
+      - adminer-mariadb
+    environment:
+      - ADMINER_PORT=${ADMINER_PORT}
+    ports:
+      - "127.0.0.1:619:${ADMINER_PORT}"
+    image: adminer:${IMAGE_TAG}
+    container_name: adminer-${CONTAINER_NAME}
+    restart: on-failure
+    init: true

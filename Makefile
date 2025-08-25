@@ -2,7 +2,7 @@ DC=docker-compose -f ./srcs/docker-compose.yml
 
 MANDATORY_SERVICE = mariadb wordpress nginx
 
-BONUS_SERVICE = redis ftp
+BONUS_SERVICE = redis ftp adminer
 
 mandatory-up:
 	$(DC) up -d $(MANDATORY_SERVICE)

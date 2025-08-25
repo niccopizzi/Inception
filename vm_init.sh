@@ -1,7 +1,7 @@
 #!/bin/bash
 
-echo "npizzi.42.fr" > /etc/hostname
-echo "npizzi.42.fr" >> /etc/hosts
+echo "127.0.0.1 npizzi.42.fr" > /etc/hosts
+echo "127.0.0.1 catguerrilla" >> /etc/hosts
 
 mkdir /home/npizzi/data
 mkdir /home/npizzi/data/db

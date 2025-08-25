@@ -33,7 +33,7 @@ server {
     ssl_session_timeout 5m;
     ssl_protocols TLSv1.2;
 
-    root /var/www/html/website;
+    root /var/www/html/${WEBSITE_NAME};
     index index.html;
     
     location / {

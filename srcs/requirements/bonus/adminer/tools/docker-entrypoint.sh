@@ -1,8 +1,12 @@
 #!/bin/bash
 
-cp -r /usr/share/adminer/ /var/www/html/wordpress/
+cp -r /usr/share/adminer/ /var/www/html/
 
-chown -R www-data:www-data /var/www/html/wordpress/adminer
-chmod 775 /var/www/html/wordpress/adminer
+chown -R www-data:www-data /var/www/html/adminer
+chmod 755 /var/www/html/adminer
 
-php
+cd /var/www/html/adminer
+
+mv adminer.php index.php
+
+php -S 0.0.0.0:$ADMINER_PORT
