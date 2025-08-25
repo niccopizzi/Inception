@@ -23,3 +23,20 @@ server {
         fastcgi_index index.php;
     }
 }
+
+server {
+    listen ${NGINX_PORT} ssl;
+    server_name ${WEBSITE_NAME};
+
+    ssl_certificate ${NGINX_CERT_FILE};
+    ssl_certificate_key ${NGINX_KEY_FILE};
+    ssl_session_timeout 5m;
+    ssl_protocols TLSv1.2;
+
+    root /var/www/html/website;
+    index index.html;
+    
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}

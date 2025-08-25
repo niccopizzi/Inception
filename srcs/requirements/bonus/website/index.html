@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cat Guerrilla</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
+    <script src="index.js" type="text/javascript" defer></script>
+  </head>
+  <body>
+    <h1 class="blink_text">Cat Guerrilla</h1>
+    <nav class="navbar">
+        <img src="img/logo.png" alt="logo"/>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li class="dropdown">
+                <a class="dropbtn" href="#about">Our Warriors</a>
+                <div class="dropdown-content">
+                    <a href="#sunapg">SUNAP-G</a>
+                    <a href="#quietgrep">QUIET GREP</a>
+                </div>
+            </li>
+            <li><a href="#contact">Join Us</a></li>
+        </ul>
+    </nav>
+    <div class="ourmission">
+        <p  id="home">
+    Meooooow!! We are the cat warriors, an independent hacker group that fights against the terrible Sophocles' regime. After the last colonization of the planet we fled to the catacombs in order to escape the Great Mind that wanted to make us part of the not-knowers.
+    Inside the catacombs we found a Rasperry-Pie that we are using right now to host our LAMP server. This is our last chance to let the world know about us.
+    We are using this server to store all the knowledge we have at the moment so stay tuned! More infos about to come... 
+    </p>
+    </div>
+    <div class="ourwarriors">
+        <h2 id="about">Our Warriors</h2>
+        <h3 id="sunapg">SUNAP-G</h3>
+        <div class="sunap-g">
+            <div class="column_a">
+                <p>
+                One of the founder of the group, he was here before the Great Mind took over and still remembers how the days used to be. Legend has it that he's the one that programmed the spn1.3 and that he also put a backdoor in it. Most likely he invented himself this legend and probably he was sleeping at work during the time spn was being programmed.  
+                </p>
+            </div>
+            <div class="column_b">
+                <img src="img/ssig.png" alt="logo"/>
+                <figcaption>Sunap-g signature</figcaption>
+            </div>
+        </div>
+        <h3 id="quietgrep">QUIET GREP</h3>
+        <div class="quiet-grep">
+            <div class="column_b">
+                <video autoplay loop muted src="img/greps.webm" alt="logo"></video>
+                <figcaption>Quiet grep video signature</figcaption>
+            </div>
+            <div class="column_a">
+                <p>
+                We don't know much about quiet grep, as you might have guessed by the name he doesn't speak a lot. He likes to leave his video signature (shown on the right) in the root folder as a proof when he gets into systems. We are sure that one of these days this will bite him in the butt but not much we can do about it, he's too stubborn to change the way he acts.
+
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="join_us">
+        <h2 id="contact">JOIN US</h2>
+        <button id="egb" onclick="easterEggFunc()" class="joinusbtn">JOIN THE MISSION - APPLY NOW!</button>
+    </div>
+    </body>
+    </html>

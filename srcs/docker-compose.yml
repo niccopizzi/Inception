@@ -26,6 +26,13 @@ volumes:
       type: local
       device: ${DB_VOLUME_SRC}
       o: bind
+  Website:
+    name: "Website"
+    driver: local
+    driver_opts:
+      type: local
+      device: ${WEBSITE_VOLUME_SRC}
+      o: bind
 
 secrets:
   db_password:
@@ -133,6 +140,9 @@ services:
       - type: volume
         source: Wordpress
         target: ${WP_FILES_DIR}
+      - type: volume
+        source: Website
+        target: /var/www/html/$WEBSITE_NAME
       - ${NGINX_CERT_FILE}:${NGINX_CERT_FILE}:ro
       - ${NGINX_KEY_FILE}:${NGINX_KEY_FILE}:ro
     environment:
@@ -142,6 +152,7 @@ services:
       - WP_FILES_DIR=${WP_FILES_DIR}
       - CONTAINER_NAME=${CONTAINER_NAME}
       - WP_HOST=${WP_HOST}
+      - WEBSITE_NAME=${WEBSITE_NAME}
     image : nginx:${IMAGE_TAG}
     container_name : nginx-${CONTAINER_NAME}
     restart: on-failure
