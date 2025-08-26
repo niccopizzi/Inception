@@ -6,9 +6,9 @@ networks:
     driver: bridge
   wordpress-redis:
     driver: bridge
-  wordpress-ftp:
-    driver: bridge
   adminer-mariadb:
+    driver: bridge
+  ping-ftp:
     driver: bridge
 
 volumes:
@@ -194,6 +194,8 @@ services:
         target: ${FTP_SECRETS_FILE_TARGET}
     ports:
       - "127.0.0.1:${FTP_PORT}:${FTP_PORT}"
+    networks:
+      - ping-ftp
     environment:
       - FTP_SECRETS_FILE_TARGET=${FTP_SECRETS_FILE_TARGET}
     image: ftp:${IMAGE_TAG}
@@ -215,8 +217,29 @@ services:
     environment:
       - ADMINER_PORT=${ADMINER_PORT}
     ports:
-      - "127.0.0.1:619:${ADMINER_PORT}"
+      - "127.0.0.1:${ADMINER_PORT}:${ADMINER_PORT}"
     image: adminer:${IMAGE_TAG}
     container_name: adminer-${CONTAINER_NAME}
     restart: on-failure
     init: true
+
+  pingacont:
+    build: 
+      context: ./requirements/bonus/pingacont
+      dockerfile: Dockerfile
+    networks:
+      - adminer-mariadb
+      - wordpress-redis
+      - ping-ftp
+      - nginx-wordpress
+    environment:
+      - PINGACONT_PORT=${PINGACONT_PORT}
+    ports:
+      - "127.0.0.1:${PINGACONT_PORT}:${PINGACONT_PORT}"
+    image: pingacont:${IMAGE_TAG}
+    container_name: pingacont-${CONTAINER_NAME}
+    restart: on-failure
+    init: true
+
+
+  

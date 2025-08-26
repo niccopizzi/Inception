@@ -2,7 +2,7 @@ DC=docker-compose -f ./srcs/docker-compose.yml
 
 MANDATORY_SERVICE = mariadb wordpress nginx
 
-BONUS_SERVICE = redis ftp adminer
+BONUS_SERVICE = redis ftp adminer pingacont
 
 mandatory-up:
 	$(DC) up -d $(MANDATORY_SERVICE)
@@ -25,20 +25,16 @@ bonus-up:
 	docker exec wordpress-container wp redis enable --allow-root
 
 bonus-down:
-	docker exec wordpress-container wp redis disable --allow-root
 	$(DC) down $(MANDATORY_SERVICE) $(BONUS_SERVICE)
 
 bonus-start:
 	$(DC) start $(MANDATORY_SERVICE) $(BONUS_SERVICE)
-	docker exec wordpress-container wp redis enable --allow-root
 
 bonus-stop:
-	docker exec wordpress-container wp redis disable --allow-root
 	$(DC) stop $(MANDATORY_SERVICE) $(BONUS_SERVICE)
 
 bonus-restart:
 	$(DC) restart $(MANDATORY_SERVICE) $(BONUS_SERVICE)
-	docker exec wordpress-container wp redis enable --allow-root
 
 .PHONY: mandatory-up mandatory-down mandatory-start mandatory-stop mandatory-restart \
 		bonus-up bonus-down bonus-start bonus-stop bonus-restart

@@ -7,6 +7,7 @@ ARG WP_CLI_URL
 RUN apt update && \
     apt install php${PHP_VERSION}-fpm php-mysql -y && \
     apt install curl -y && curl -O ${WP_CLI_URL} && \
+    apt install iputils-ping -y && \
     apt install libfcgi-bin -y
 
 RUN chmod +x wp-cli.phar && \

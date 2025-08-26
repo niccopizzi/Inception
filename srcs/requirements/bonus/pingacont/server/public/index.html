@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ping A Cont</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js" type="text/javascript" defer></script>
+  </head>
+  <body>
+    <div class="head">
+        <h1>Ping A Container</h1>
+        <p>Use this to check a container health, just click on the button
+            for the container you want to check and a message will appear showing if
+            the container is reachable or not
+        </p>
+    </div>
+    <ul>
+        <div class="cont_list">
+            <li>
+                <button class="ping_btn" host="mariadb-container">Mariadb</button>
+                <p>Status Unknown</p>
+            </li>
+            <li>
+                <button class="ping_btn" host="wordpress-container">Wordpress</button>
+                <p>Status Unknown</p>
+            </li>
+            <li>
+                <button class="ping_btn" host="nginx-container">Nginx</button>
+                <p>Status Unknown</p>
+            </li>
+            <li>
+                <button class="ping_btn" host="redis-container">Redis</button>
+                <p>Status Unknown</p>
+            </li>
+            <li>
+                <button class="ping_btn" host="ftp-container">FPT-Server</button>
+                <p>Status Unknown</p>
+            </li>
+            <li>
+                <button class="ping_btn" host="adminer-container">Adminer</button>
+                <p>Status Unknown</p>
+            </li>
+        </div>
+    </ul>
+  </body>
+</html>
