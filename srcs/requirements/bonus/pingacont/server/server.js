@@ -15,7 +15,7 @@ async function pinger(host) {
 const express = require('express');
 const app = express();
 const path = require('path');
-const PORT = process.env.PINGACONT_PORT;
+const PORT = process.env.PINGACONT_PORT || 6199;
 
 
 app.get("/check", async (req, res) => {

@@ -1,26 +1,136 @@
 * {
-    background-color: skyblue;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: #24252A;
 }
 
-.head {
-    background-color: grey;
-    text-align: center;
-    height: 150px;
+li, a, button {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #ecf0f1;
+    text-decoration: none;
 }
 
-.head h1 {
-    background-color: transparent;
+header {
+    background-color:  #393b47;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+    padding: 30px 30px;
 }
 
-.head p {
+.logo {
+    cursor: pointer;
+    background-color:  #393b47;
+    display: block;
+    text-align: center;
+    transition: all 0.5s ease 0s;
+}
+
+.logo img {
     background-color: transparent;
-    justify-content: center;
-    font-size: 10px;
+}
+
+.logo figcaption {
+    background-color: transparent;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.logo img:hover {
+    background-color: lime;
+    transition: all 0.5s ease 0s;
+}
+
+.logo:hover {
+    color: lime;
+}
+
+.navbar {
+    list-style: none;
+    background-color: #393b47;
+}
+
+
+.navbar img {
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    border: 5px;
+}
+
+.navbar li {
+    text-align: center;
+    display: inline-block;
+    padding: 0px 20px;
+    background-color: #393b47;
+}
+
+.navbar li a {
+    display: block;
+    align-items: center;
+    transition: all 0.3s ease 0s;
+    background-color: #393b47;
+}
+
+.navbar li a:hover {
+    color: lime;
+}
+
+header a {
+    background-color: #393b47;
+}
+
+button {
+    padding: 9px 25px;
+    background-color: rgba(0, 136, 169, 1);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+button:hover {
+    background-color: rgba(0, 255, 0, 0.8);
 }
 
 .cont_list li {
+    height: 200px;
+    padding: 50px;
+    position: relative;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    background-color: transparent;
+}
+
+.cont_list li p {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background-color: transparent;
+    color: black;
+}
+
+.cont_list li img {
+    margin-left: auto;
+    display: block;
+}
+
+#mariadb {
+    background-color: antiquewhite;
+}
+
+#wordpress {
+    background-color: #4a4c58;
+}
+
+#redis {
+    background-color: #4a4c58;
+}
+
+#ftp {
+    background-color: antiquewhite;
 }

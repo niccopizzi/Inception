@@ -9,37 +9,65 @@
     <script src="index.js" type="text/javascript" defer></script>
   </head>
   <body>
-    <div class="head">
-        <h1>Ping A Container</h1>
-        <p>Use this to check a container health, just click on the button
-            for the container you want to check and a message will appear showing if
-            the container is reachable or not
-        </p>
-    </div>
+    <header>
+        <div class="logo">
+            <img src="img/alien.svg" alt="cat...."/>
+            <figcaption>PING A CONT</figcaption>
+        </div>
+        <nav>
+            <ul class="navbar">
+                <li>
+                    <img src="img/adminerlogo.png">
+                    <a href="#adminer">Adminer</a>
+                </li>
+                <li>
+                    <img src="img/ftp.png">
+                    <a href="#ftp">FTP</a>
+                </li>
+                <li>
+                    <img src="img/mariadb.svg">
+                    <a href="#mariadb">MariaDB</a>
+                </li>
+                <li>
+                    <img src="img/nginx.svg">
+                    <a href="#nginx">Nginx</a>
+                </li>
+                <li>
+                    <img src="img/redis.svg">
+                    <a href="#redis">Redis</a>
+                </li>
+                <li>
+                    <img src="img/wp.svg">
+                    <a href="#wordpress">Wordpress</a>
+                </li>
+            </ul>
+        </nav>
+        <a onclick="easterEggFunc()" id="egb" href="#"><button id="egbb">Contact</button></a>
+    </header>
     <ul>
         <div class="cont_list">
-            <li>
-                <button class="ping_btn" host="mariadb-container">Mariadb</button>
+            <li id="mariadb">
+                <button class="ping_btn" service="mariadb" host="mariadb-container">Mariadb</button>
                 <p>Status Unknown</p>
             </li>
-            <li>
-                <button class="ping_btn" host="wordpress-container">Wordpress</button>
+            <li id="wordpress">
+                <button class="ping_btn" service="wordpress" host="wordpress-container">Wordpress</button>
                 <p>Status Unknown</p>
             </li>
-            <li>
-                <button class="ping_btn" host="nginx-container">Nginx</button>
+            <li id="nginx">
+                <button class="ping_btn" service="nginx" host="nginx-container">Nginx</button>
                 <p>Status Unknown</p>
             </li>
-            <li>
-                <button class="ping_btn" host="redis-container">Redis</button>
+            <li id="redis">
+                <button class="ping_btn" service="redis" host="redis-container">Redis</button>
                 <p>Status Unknown</p>
             </li>
-            <li>
-                <button class="ping_btn" host="ftp-container">FPT-Server</button>
+            <li id="ftp">
+                <button class="ping_btn" service="ftp" host="ftp-container">FPT-Server</button>
                 <p>Status Unknown</p>
             </li>
-            <li>
-                <button class="ping_btn" host="adminer-container">Adminer</button>
+            <li id="adminer">
+                <button class="ping_btn" service="adminer" host="adminer-container">Adminer</button>
                 <p>Status Unknown</p>
             </li>
         </div>
